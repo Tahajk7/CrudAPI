@@ -2,18 +2,7 @@ import express from "express";
 const router = express.Router();
 import { v4 as uuidv4 } from "uuid";
 
-const users = [
-  //   {
-  //     Firstname: "Taha",
-  //     LastName: "Çelik",
-  //     age: 17,
-  //   },
-  //   {
-  //     Firstname: "Emre",
-  //     LastName: "Koç",
-  //     age: 18,
-  //   },
-];
+const users = [];
 
 router.get("/", (req, res) => {
   res.send(users);
@@ -30,7 +19,33 @@ router.post("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  res.send("Henüz bir ıd almadınız");
+  const { id } = req.params;
+
+  const foundUser = users.find((user) => user.id === id);
+
+  res.send(foundUser);
+});
+
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  users = users.filter((user) => user.id !== id);
+
+  res.send(`User with the id  ${id} deleted from database `);
+});
+
+router.patch("/:id", (req, res) => {
+  const { id } = req.params;
+
+  const { Firstname, LastName, age } = req.body;
+
+  const userToBeUpdated = users.find((user) => user.id === id);
+
+  if (Firstname) user.Firstname = Firstname;
+  if (LastName) user.LastName = LastName;
+  if (age) user.age = age;
+
+  res.send(`User withe the id ${id} patched from database`);
 });
 
 export default router;

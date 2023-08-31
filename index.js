@@ -8,7 +8,7 @@ const PORT = 5000;
 
 app.use(bodyParser.json());
 
-app.use("/users",usersRoutes)
+app.use("/users", usersRoutes);
 
 app.get("/", (req, res) => res.send("Anasayfadan selamlar"));
 
